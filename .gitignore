@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env
+.env.*
+
+# Docker
+*.log
+
+# Python packages accidentally installed locally
+asn1crypto/
+pg8000/
+scramp/
+dateutil/
+six.py
+*.dist-info/
