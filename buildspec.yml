@@ -21,7 +21,6 @@ phases:
     commands:
       - echo "Building Docker image..."
       - docker build -t $ECR_REPO_NAME:$IMAGE_TAG .
-
       - docker tag $ECR_REPO_NAME:$IMAGE_TAG $ECR_URI:$IMAGE_TAG
       - docker tag $ECR_REPO_NAME:$IMAGE_TAG $ECR_URI:latest
 
@@ -30,7 +29,6 @@ phases:
       - echo "Pushing image to ECR..."
       - docker push $ECR_URI:$IMAGE_TAG
       - docker push $ECR_URI:latest
-
       - echo "Creating imagedefinitions.json for ECS deployment..."
       - printf '[{"name":"%s","imageUri":"%s"}]' \
         "$CONTAINER_NAME" \
