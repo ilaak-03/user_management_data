@@ -3,6 +3,7 @@ version: 0.2
 env:
   variables:
     AWS_REGION: ap-south-1
+    AWS_ACCOUNT_ID: 140857882741
     ECR_REPO_NAME: user_management_data
     CONTAINER_NAME: user-management-api   # must match task definition container name
 
@@ -10,13 +11,11 @@ phases:
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
-      - aws ecr get-login-password --region $AWS_REGION |
-        docker login --username AWS --password-stdin \
-        $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
-
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - ECR_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO_NAME
       - echo "Image tag: $IMAGE_TAG"
+
 
   build:
     commands:
